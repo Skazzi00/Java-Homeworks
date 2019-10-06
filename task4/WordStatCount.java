@@ -1,5 +1,3 @@
-package task4;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -25,7 +23,7 @@ public class WordStatCount {
 
     public static void main(String[] args) {
         if (args.length < 2) {
-            System.err.println("Not enough arguments");
+            System.err.println("Error: Not enough arguments");
             return;
         }
         File input = new File(args[0]);
