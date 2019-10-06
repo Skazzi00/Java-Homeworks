@@ -1,3 +1,5 @@
+package task4;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -78,7 +80,6 @@ public class WordStatCount {
             }
         } catch (IOException e) {
             System.err.println("I/O Exception: " + e.getMessage());
-            return;
         }
     }
 }
