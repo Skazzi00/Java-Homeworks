@@ -1,0 +1,5 @@
+javac /Users/skazzi/Documents/Programming\ HW/Task1/HelloWorld.java
+
+java -cp /Users/skazzi/Documents/Programming\ HW/Task1 HelloWorld
+
+read
