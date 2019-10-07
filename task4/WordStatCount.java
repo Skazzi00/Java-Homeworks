@@ -32,18 +32,19 @@ public class WordStatCount {
         Map<String, Integer> freq = new HashMap<>();
         Map<String, Integer> wordOrder = new HashMap<>();
         int order = 0;
-        try (BufferedReader inputReader = new BufferedReader(new FileReader(input, StandardCharsets.UTF_8), BUFFER_SIZE)) {
+        try (BufferedReader inputReader = new BufferedReader(
+                new FileReader(
+                        input, StandardCharsets.UTF_8
+                ), BUFFER_SIZE
+        )) {
             String line = readLine(inputReader);
             while (line != null) {
-                //System.out.println(line);
                 line = line.toLowerCase();
                 Matcher matcher = WORD.matcher(line);
                 while (matcher.find()) {
                     String token = line.substring(matcher.start(), matcher.end());
                     freq.put(token, freq.getOrDefault(token, 0) + 1);
-                    if (!wordOrder.containsKey(token)) {
-                        wordOrder.put(token, order++);
-                    }
+                    wordOrder.putIfAbsent(token, order++);
                 }
                 line = readLine(inputReader);
             }
@@ -67,13 +68,12 @@ public class WordStatCount {
                 Map<Integer, String> buffer = new TreeMap<>();
                 int curFreq = freqList.get(iter).getValue();
                 while (iter < freqList.size() && freqList.get(iter).getValue() == curFreq) {
-                    buffer.put(wordOrder.get(freqList.get(iter).getKey()), freqList.get(iter).getKey());
+                    buffer.put(wordOrder.get(freqList.get(iter).getKey()),
+                            freqList.get(iter).getKey());
                     iter++;
                 }
                 for (Map.Entry<Integer, String> i : buffer.entrySet()) {
-                    outputWriter.print(i.getValue());
-                    outputWriter.print(" ");
-                    outputWriter.println(curFreq);
+                    outputWriter.println(i.getValue() + " " + curFreq);
                 }
             }
         } catch (IOException e) {
