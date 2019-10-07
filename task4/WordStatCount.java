@@ -1,6 +1,9 @@
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,21 +32,19 @@ public class WordStatCount {
         File input = new File(args[0]);
         File output = new File(args[1]);
 
-        Map<String, Integer> freq = new HashMap<>();
-        Map<String, Integer> wordOrder = new HashMap<>();
-        int order = 0;
-        try (BufferedReader inputReader = new BufferedReader(new FileReader(input, StandardCharsets.UTF_8), BUFFER_SIZE)) {
+        Map<String, Integer> freq = new LinkedHashMap<>();
+        try (BufferedReader inputReader = new BufferedReader(
+                new FileReader(
+                        input, StandardCharsets.UTF_8
+                ), BUFFER_SIZE
+        )) {
             String line = readLine(inputReader);
             while (line != null) {
-                //System.out.println(line);
                 line = line.toLowerCase();
                 Matcher matcher = WORD.matcher(line);
                 while (matcher.find()) {
                     String token = line.substring(matcher.start(), matcher.end());
                     freq.put(token, freq.getOrDefault(token, 0) + 1);
-                    if (!wordOrder.containsKey(token)) {
-                        wordOrder.put(token, order++);
-                    }
                 }
                 line = readLine(inputReader);
             }
@@ -54,6 +55,7 @@ public class WordStatCount {
             System.err.println("I/O Exception: " + e.getMessage());
             return;
         }
+
         List<Map.Entry<String, Integer>> freqList = new ArrayList<>(freq.entrySet());
         freqList.sort(Map.Entry.comparingByValue());
 
@@ -62,19 +64,8 @@ public class WordStatCount {
                         new FileWriter(output, StandardCharsets.UTF_8))
         )
         ) {
-            int iter = 0;
-            while (iter < freqList.size()) {
-                Map<Integer, String> buffer = new TreeMap<>();
-                int curFreq = freqList.get(iter).getValue();
-                while (iter < freqList.size() && freqList.get(iter).getValue() == curFreq) {
-                    buffer.put(wordOrder.get(freqList.get(iter).getKey()), freqList.get(iter).getKey());
-                    iter++;
-                }
-                for (Map.Entry<Integer, String> i : buffer.entrySet()) {
-                    outputWriter.print(i.getValue());
-                    outputWriter.print(" ");
-                    outputWriter.println(curFreq);
-                }
+            for (Map.Entry<String, Integer> i : freqList) {
+                outputWriter.println(i.getKey() + " " + i.getValue());
             }
         } catch (IOException e) {
             System.err.println("I/O Exception: " + e.getMessage());
