@@ -167,21 +167,7 @@ public class Scanner implements AutoCloseable {
         return builder.toString();
     }
 
-    public boolean hasNextLine() {
-        if (inputEnd)
-            return false;
-        savedPosition = position;
-        while (!inputEnd) {
-            while (position < buf.limit()) {
-                if (buf.get(position) == '\n') {
-                    position = savedPosition;
-                    savedPosition = -1;
-                    return true;
-                }
-                position++;
-            }
-            readInput();
-        }
+    private boolean findEndLine() {
         while (position < buf.limit()) {
             if (buf.get(position) == '\n') {
                 position = savedPosition;
@@ -190,9 +176,24 @@ public class Scanner implements AutoCloseable {
             }
             position++;
         }
-        position = savedPosition;
-        savedPosition = -1;
         return false;
+    }
+
+    public boolean hasNextLine() {
+        if (inputEnd)
+            return false;
+        savedPosition = position;
+        while (!inputEnd) {
+            if (findEndLine())
+                return true;
+            readInput();
+        }
+        if (!findEndLine()) {
+            position = savedPosition;
+            savedPosition = -1;
+            return false;
+        }
+        return true;
     }
 
     public String nextLine() {
