@@ -58,17 +58,12 @@ public class Scanner implements AutoCloseable {
         }
     }
 
-    private void throwFor() {
-        if ((inputEnd) && (position == buf.limit()))
-            throw new NoSuchElementException();
-        else
-            throw new InputMismatchException();
-    }
 
     private void allocate() {
         int offset = savedPosition == -1 ? position : savedPosition;
-        if (compact)
+        if (compact) {
             buf.position(offset);
+        }
         if (compact && offset > 0) {
             buf.compact();
             position -= offset;
@@ -90,8 +85,7 @@ public class Scanner implements AutoCloseable {
         int pos = buf.position();
         buf.position(buf.limit());
         buf.limit(buf.capacity());
-
-        int n = 0;
+        int n;
         try {
             n = reader.read(buf);
         } catch (IOException e) {
@@ -132,7 +126,7 @@ public class Scanner implements AutoCloseable {
         return false;
     }
 
-    private void skipSpaces(){
+    private void skipSpaces() {
         while (!inputEnd) {
             while (position < buf.limit()) {
                 if (!Character.isWhitespace(buf.get(position))) {
@@ -147,32 +141,30 @@ public class Scanner implements AutoCloseable {
     public String next() {
         if (!hasNext())
             throw new NoSuchElementException("No such element");
-        while (true) {
-            skipSpaces();
-            if (position == buf.limit()) {
-                if (inputEnd) {
-                    throw new NoSuchElementException("No such element");
-                }
-                throw new InputMismatchException();
+        skipSpaces();
+        if (position == buf.limit()) {
+            if (inputEnd) {
+                throw new NoSuchElementException("No such element");
             }
-            StringBuilder builder = new StringBuilder();
-            while (!inputEnd) {
-                while (position < buf.limit()) {
-                    if (Character.isWhitespace(buf.get(position))) {
-                        return builder.toString();
-                    }
-                    builder.append(buf.get(position));
-                    position++;
+            throw new InputMismatchException();
+        }
+        StringBuilder builder = new StringBuilder();
+        while (!inputEnd) {
+            while (position < buf.limit()) {
+                if (Character.isWhitespace(buf.get(position))) {
+                    return builder.toString();
                 }
-                readInput();
-            }
-            inputEnd = true;
-            while (position < buf.limit() && !Character.isWhitespace(buf.get(position))) {
                 builder.append(buf.get(position));
                 position++;
             }
-            return builder.toString();
+            readInput();
         }
+        inputEnd = true;
+        while (position < buf.limit() && !Character.isWhitespace(buf.get(position))) {
+            builder.append(buf.get(position));
+            position++;
+        }
+        return builder.toString();
     }
 
     public boolean hasNextLine() {
