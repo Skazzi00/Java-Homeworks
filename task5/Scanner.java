@@ -7,7 +7,7 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
 public class Scanner implements AutoCloseable {
-    private static final int BUFFER_SIZE = 1024;
+    private static final int BUFFER_SIZE = 128;
     private final Reader reader;
     private CharBuffer buf;
     private int position;
