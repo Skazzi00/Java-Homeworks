@@ -7,11 +7,10 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
 public class Scanner implements AutoCloseable {
-    private static final int BUFFER_SIZE = 8;
+    private static final int BUFFER_SIZE = 128;
     private final Reader reader;
     private char[] buf;
     private int bufLimit;
-    private int bufPosition;
     private int position;
     private int savedPosition = -1;
     private boolean inputEnd = false;
@@ -60,27 +59,22 @@ public class Scanner implements AutoCloseable {
     }
 
     private int remaining() {
-        return bufLimit - bufPosition;
+        return bufLimit - position;
     }
 
     private void compact() {
         System.arraycopy(buf, position, buf, 0, remaining());
-        if (remaining() < buf.length / 2) {
-            buf = Arrays.copyOf(buf, buf.length / 2);
-        }
-        bufPosition = 0;
     }
 
     private void allocate(boolean compact) {
         int offset = savedPosition == -1 ? position : savedPosition;
-        if (compact && offset > 0) {
-            bufPosition = offset;
-            compact();
+        if (offset > 0) {
+            System.arraycopy(buf, offset, buf, 0, bufLimit - offset);
             position -= offset;
             if (savedPosition != -1) {
                 savedPosition -= offset;
             }
-            System.out.println("zzz");
+            bufLimit -= offset;
             return;
         }
         buf = Arrays.copyOf(buf, buf.length * 2);
@@ -90,33 +84,34 @@ public class Scanner implements AutoCloseable {
         if (bufLimit == buf.length) {
             allocate(compact);
         }
-        int pos = bufPosition;
-        bufPosition = bufLimit;
-        bufLimit = buf.length;
+
         int n;
         try {
-            n = reader.read(buf, bufPosition, buf.length - bufPosition);
+            n = reader.read(buf, bufLimit, buf.length - bufLimit);
         } catch (IOException e) {
             n = -1;
         }
         if (n == -1) {
             inputEnd = true;
         }
-        bufLimit = bufPosition;
         if (n > 0) {
             inputEnd = false;
-            bufLimit = bufPosition + n;
+            bufLimit = position + n;
         }
-        bufPosition = pos;
     }
 
     public boolean hasNext() {
-        savedPosition = position;
+        boolean flag = false;
+        if (savedPosition == -1) {
+            flag = true;
+            savedPosition = position;
+        }
         while (!inputEnd) {
             while (position < bufLimit) {
                 if (!Character.isWhitespace(buf[position])) {
                     position = savedPosition;
-                    savedPosition = -1;
+                    if (flag)
+                        savedPosition = -1;
                     return true;
                 }
                 position++;
@@ -245,11 +240,12 @@ public class Scanner implements AutoCloseable {
             lastException = new NoSuchElementException();
             return false;
         }
-        int savedPosition = position;
+        savedPosition = position;
         boolean inputEnd = this.inputEnd;
         String token = next(false);
         this.inputEnd = inputEnd;
         position = savedPosition;
+        savedPosition = -1;
         try {
             Integer.parseInt(token);
         } catch (NumberFormatException e) {
