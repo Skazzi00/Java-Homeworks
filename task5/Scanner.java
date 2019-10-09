@@ -76,7 +76,6 @@ public class Scanner implements AutoCloseable {
         if (bufLimit == buf.length) {
             allocate();
         }
-
         int n;
         try {
             n = reader.read(buf, bufLimit, buf.length - bufLimit);
@@ -87,7 +86,6 @@ public class Scanner implements AutoCloseable {
             inputEnd = true;
         }
         if (n > 0) {
-            inputEnd = false;
             bufLimit = position + n;
         }
     }
@@ -105,15 +103,6 @@ public class Scanner implements AutoCloseable {
                 position++;
             }
             readInput();
-        }
-
-        while (position < bufLimit) {
-            if (!Character.isWhitespace(buf[position])) {
-                position = savedPosition;
-                savedPosition = isSaved ? savedPosition : -1;
-                return true;
-            }
-            position++;
         }
         position = savedPosition;
         savedPosition = isSaved ? savedPosition : -1;
@@ -136,10 +125,7 @@ public class Scanner implements AutoCloseable {
         if (!hasNext())
             throw new NoSuchElementException("No such element");
         skipSpaces();
-        if (position == bufLimit) {
-            if (inputEnd) {
-                throw new NoSuchElementException("No such element");
-            }
+        if (inputEnd) {
             throw new InputMismatchException();
         }
         StringBuilder builder = new StringBuilder();
@@ -152,11 +138,6 @@ public class Scanner implements AutoCloseable {
                 position++;
             }
             readInput();
-        }
-
-        while (position < bufLimit && !Character.isWhitespace(buf[position])) {
-            builder.append(buf[position]);
-            position++;
         }
         return builder.toString();
     }
@@ -175,14 +156,6 @@ public class Scanner implements AutoCloseable {
                 position++;
             }
             readInput();
-        }
-        while (position < bufLimit) {
-            if (buf[position] == '\n') {
-                position = savedPosition;
-                savedPosition = -1;
-                return true;
-            }
-            position++;
         }
         position = savedPosition;
         savedPosition = -1;
