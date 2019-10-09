@@ -58,15 +58,7 @@ public class Scanner implements AutoCloseable {
         }
     }
 
-    private int remaining() {
-        return bufLimit - position;
-    }
-
-    private void compact() {
-        System.arraycopy(buf, position, buf, 0, remaining());
-    }
-
-    private void allocate(boolean compact) {
+    private void allocate() {
         int offset = savedPosition == -1 ? position : savedPosition;
         if (offset > 0) {
             System.arraycopy(buf, offset, buf, 0, bufLimit - offset);
@@ -80,9 +72,9 @@ public class Scanner implements AutoCloseable {
         buf = Arrays.copyOf(buf, buf.length * 2);
     }
 
-    private void readInput(boolean compact) {
+    private void readInput() {
         if (bufLimit == buf.length) {
-            allocate(compact);
+            allocate();
         }
 
         int n;
@@ -101,33 +93,30 @@ public class Scanner implements AutoCloseable {
     }
 
     public boolean hasNext() {
-        boolean flag = false;
-        if (savedPosition == -1) {
-            flag = true;
-            savedPosition = position;
-        }
+        boolean isSaved = savedPosition != -1;
+        savedPosition = isSaved ? savedPosition : position;
         while (!inputEnd) {
             while (position < bufLimit) {
                 if (!Character.isWhitespace(buf[position])) {
                     position = savedPosition;
-                    if (flag)
-                        savedPosition = -1;
+                    savedPosition = isSaved ? savedPosition : -1;
                     return true;
                 }
                 position++;
             }
-            readInput(false);
+            readInput();
         }
+
         while (position < bufLimit) {
             if (!Character.isWhitespace(buf[position])) {
                 position = savedPosition;
-                savedPosition = -1;
+                savedPosition = isSaved ? savedPosition : -1;
                 return true;
             }
             position++;
         }
         position = savedPosition;
-        savedPosition = -1;
+        savedPosition = isSaved ? savedPosition : -1;
         return false;
     }
 
@@ -139,11 +128,11 @@ public class Scanner implements AutoCloseable {
                 }
                 position++;
             }
-            readInput(true);
+            readInput();
         }
     }
 
-    private String next(boolean compact) {
+    private String next() {
         if (!hasNext())
             throw new NoSuchElementException("No such element");
         skipSpaces();
@@ -162,30 +151,14 @@ public class Scanner implements AutoCloseable {
                 builder.append(buf[position]);
                 position++;
             }
-            readInput(compact);
+            readInput();
         }
-        inputEnd = true;
+
         while (position < bufLimit && !Character.isWhitespace(buf[position])) {
             builder.append(buf[position]);
             position++;
         }
         return builder.toString();
-    }
-
-    public String next() {
-        return next(true);
-    }
-
-    private boolean findEndLine() {
-        while (position < bufLimit) {
-            if (buf[position] == '\n') {
-                position = savedPosition;
-                savedPosition = -1;
-                return true;
-            }
-            position++;
-        }
-        return false;
     }
 
     public boolean hasNextLine() {
@@ -201,7 +174,7 @@ public class Scanner implements AutoCloseable {
                 }
                 position++;
             }
-            readInput(false);
+            readInput();
         }
         while (position < bufLimit) {
             if (buf[position] == '\n') {
@@ -229,9 +202,8 @@ public class Scanner implements AutoCloseable {
                 builder.append(buf[position]);
                 position++;
             }
-            readInput(true);
+            readInput();
         }
-        inputEnd = true;
         return builder.toString();
     }
 
@@ -242,7 +214,7 @@ public class Scanner implements AutoCloseable {
         }
         savedPosition = position;
         boolean inputEnd = this.inputEnd;
-        String token = next(false);
+        String token = next();
         this.inputEnd = inputEnd;
         position = savedPosition;
         savedPosition = -1;
