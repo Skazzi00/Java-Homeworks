@@ -149,8 +149,9 @@ public class Scanner implements AutoCloseable {
         if (closed) {
             throw new IllegalStateException("Scanner is closed");
         }
-        if (inputEnd)
+        if (inputEnd) {
             return false;
+        }
         savedPosition = position;
         while (!inputEnd) {
             while (position < bufLimit) {
@@ -169,8 +170,9 @@ public class Scanner implements AutoCloseable {
     }
 
     public String nextLine() {
-        if (!hasNextLine())
+        if (!hasNextLine()) {
             throw new NoSuchElementException("No such element");
+        }
         StringBuilder builder = new StringBuilder();
         while (!inputEnd) {
             while (position < bufLimit) {
@@ -207,8 +209,9 @@ public class Scanner implements AutoCloseable {
     }
 
     public int nextInt() {
-        if (!hasNextInt())
+        if (!hasNextInt()) {
             throw lastException;
+        }
         return Integer.parseInt(next());
     }
 }
