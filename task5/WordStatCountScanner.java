@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 
 public class WordStatCountScanner {
     private static final Pattern WORD = Pattern.compile("[\\p{IsAlphabetic}\\p{Pd}']+");
-    private static final int BUFFER_SIZE = 1024;
 
     public static void main(String[] args) {
         if (args.length < 2) {
