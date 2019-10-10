@@ -14,6 +14,7 @@ public class Scanner implements AutoCloseable {
     private int position;
     private int savedPosition = -1;
     private boolean inputEnd = false;
+    private boolean closed = false;
     private NoSuchElementException lastException;
 
     private Scanner(Reader reader) {
@@ -51,6 +52,7 @@ public class Scanner implements AutoCloseable {
     }
 
     public void close() {
+        closed = true;
         try {
             reader.close();
         } catch (IOException e) {
@@ -91,6 +93,9 @@ public class Scanner implements AutoCloseable {
     }
 
     public boolean hasNext() {
+        if (closed) {
+            throw new IllegalStateException("Scanner is closed");
+        }
         boolean isSaved = savedPosition != -1;
         savedPosition = isSaved ? savedPosition : position;
         while (!inputEnd) {
@@ -122,12 +127,10 @@ public class Scanner implements AutoCloseable {
     }
 
     private String next() {
-        if (!hasNext())
+        if (!hasNext()) {
             throw new NoSuchElementException("No such element");
-        skipSpaces();
-        if (inputEnd) {
-            throw new InputMismatchException();
         }
+        skipSpaces();
         StringBuilder builder = new StringBuilder();
         while (!inputEnd) {
             while (position < bufLimit) {
@@ -143,6 +146,9 @@ public class Scanner implements AutoCloseable {
     }
 
     public boolean hasNextLine() {
+        if (closed) {
+            throw new IllegalStateException("Scanner is closed");
+        }
         if (inputEnd)
             return false;
         savedPosition = position;
