@@ -67,13 +67,12 @@ public class WordStatIndex {
         )) {
             for (Map.Entry<String, Integer> i : wordFreq.entrySet()) {
                 outputWriter.print(i.getKey() + " " + i.getValue() + " ");
-                for (int j = 0; j < wordEntries.get(i.getKey()).size(); j++) {
-                    outputWriter.print(wordEntries.get(i.getKey()).get(j));
-                    if (j != wordEntries.get(i.getKey()).size() - 1) {
-                        outputWriter.print(" ");
-                    }
+                for (int j = 0; j < wordEntries.get(i.getKey()).size() - 1; j++) {
+                    outputWriter.print(wordEntries.get(i.getKey()).get(j) + " ");
                 }
-                outputWriter.println();
+                outputWriter.println(wordEntries.get(i.getKey()).get(
+                        wordEntries.get(i.getKey()).size() - 1
+                ));
             }
         } catch (IOException e) {
             System.err.println("I/O Exception: " + e.getMessage());
