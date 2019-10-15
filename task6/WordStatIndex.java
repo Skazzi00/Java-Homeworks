@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class WordStatIndex {
     private static final Pattern WORD = Pattern.compile("[\\p{IsAlphabetic}\\p{Pd}']+");
-    private static final int BUFFER_SIZE = 1024;
+    private static final int BUFFER_SIZE = 8192;
 
     private static String readLine(BufferedReader reader) throws IOException {
         StringBuilder builder = new StringBuilder();
