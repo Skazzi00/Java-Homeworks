@@ -6,6 +6,9 @@ import java.nio.charset.Charset;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
+/**
+ * @author Alexandr Eremin (eremin.casha@gmail.com)
+ */
 public class Scanner implements AutoCloseable {
     private static final int BUFFER_SIZE = 4;
     private final Reader reader;
@@ -91,7 +94,7 @@ public class Scanner implements AutoCloseable {
         buf.position(buf.limit());
         buf.limit(buf.capacity());
 
-        int n = 0;
+        int n;
         try {
             n = reader.read(buf);
         } catch (IOException e) {

@@ -2,6 +2,9 @@ package task6;
 
 import java.util.Arrays;
 
+/**
+ * @author Alexandr Eremin (eremin.casha@gmail.com)
+ */
 public class ListInt {
     private static final int SIZE = 16;
     private int[] array;

@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author Alexandr Eremin (eremin.casha@gmail.com)
+ */
 public class WordStatCount {
     private static final Pattern WORD = Pattern.compile("[\\p{IsAlphabetic}\\p{Pd}']+");
     private static final int BUFFER_SIZE = 1024;
