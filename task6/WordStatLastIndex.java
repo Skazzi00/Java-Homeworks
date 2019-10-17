@@ -1,4 +1,4 @@
-
+import task5.Scanner;
 import task6.ListInt;
 
 import java.io.*;
@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
  */
 public class WordStatLastIndex {
     private static final Pattern WORD = Pattern.compile("[\\p{IsAlphabetic}\\p{Pd}']+");
-    private static final int BUFFER_SIZE = 8192;
 
     private static String readLine(BufferedReader reader) throws IOException {
         StringBuilder builder = new StringBuilder();
@@ -36,18 +35,13 @@ public class WordStatLastIndex {
         }
         File input = new File(args[0]);
         File output = new File(args[1]);
-        int wordCounter = 0;
         Map<String, Integer> wordFreq = new LinkedHashMap<>();
         Map<String, ListInt> wordEntries = new HashMap<>();
-        try (BufferedReader inputReader = new BufferedReader(
-                new FileReader(
-                        input, StandardCharsets.UTF_8
-                ), BUFFER_SIZE
-        )) {
+        try (Scanner inputScanner = new Scanner(input)) {
 
-            String line = readLine(inputReader);
-            while (line != null) {
-                wordCounter = 0;
+            while (inputScanner.hasNextLine()) {
+                String line = inputScanner.nextLine();
+                int wordCounter = 0;
                 line = line.toLowerCase();
                 Matcher matcher = WORD.matcher(line);
                 Map<String, Integer> lineEntry = new LinkedHashMap<>();
@@ -61,13 +55,9 @@ public class WordStatLastIndex {
                     wordEntries.putIfAbsent(i.getKey(), new ListInt());
                     wordEntries.get(i.getKey()).add(i.getValue());
                 }
-                line = readLine(inputReader);
             }
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
-            return;
-        } catch (IOException e) {
-            System.err.println("I/O Exception: " + e.getMessage());
             return;
         }
 
