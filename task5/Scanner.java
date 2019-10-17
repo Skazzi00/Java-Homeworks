@@ -53,6 +53,7 @@ public class Scanner implements AutoCloseable {
         this(new BufferedReader(new InputStreamReader(source, charset), BUFFER_SIZE));
     }
 
+    @Override
     public void close() {
         try {
             reader.close();
