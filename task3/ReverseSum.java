@@ -2,6 +2,9 @@ package task3;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * @author Alexandr Eremin (eremin.casha@gmail.com)
+ */
 public class ReverseSum {
     private static final int MIN_ARRAY_SIZE = 16;
 

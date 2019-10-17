@@ -1,8 +1,8 @@
+import task6.ListInt;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 /**
  * @author Alexandr Eremin (eremin.casha@gmail.com)
  */
-public class WordStatCount {
+public class WordStatIndex {
     private static final Pattern WORD = Pattern.compile("[\\p{IsAlphabetic}\\p{Pd}']+");
-    private static final int BUFFER_SIZE = 1024;
+    private static final int BUFFER_SIZE = 8192;
 
     private static String readLine(BufferedReader reader) throws IOException {
         StringBuilder builder = new StringBuilder();
@@ -34,8 +34,8 @@ public class WordStatCount {
         }
         File input = new File(args[0]);
         File output = new File(args[1]);
-
-        Map<String, Integer> freq = new LinkedHashMap<>();
+        int wordCounter = 0;
+        Map<String, ListInt> wordEntries = new LinkedHashMap<>();
         try (BufferedReader inputReader = new BufferedReader(
                 new FileReader(
                         input, StandardCharsets.UTF_8
@@ -46,8 +46,10 @@ public class WordStatCount {
                 line = line.toLowerCase();
                 Matcher matcher = WORD.matcher(line);
                 while (matcher.find()) {
+                    wordCounter++;
                     String token = line.substring(matcher.start(), matcher.end());
-                    freq.put(token, freq.getOrDefault(token, 0) + 1);
+                    wordEntries.putIfAbsent(token, new ListInt());
+                    wordEntries.get(token).add(wordCounter);
                 }
                 line = readLine(inputReader);
             }
@@ -59,18 +61,22 @@ public class WordStatCount {
             return;
         }
 
-        List<Map.Entry<String, Integer>> freqList = new ArrayList<>(freq.entrySet());
-        freqList.sort(Map.Entry.comparingByValue());
-
         try (PrintWriter outputWriter = new PrintWriter(
                 new BufferedWriter(
                         new FileWriter(output, StandardCharsets.UTF_8))
         )) {
-            for (Map.Entry<String, Integer> i : freqList) {
-                outputWriter.println(i.getKey() + " " + i.getValue());
+            for (Map.Entry<String, ListInt> i : wordEntries.entrySet()) {
+                outputWriter.print(i.getKey() + " " + i.getValue().size() + " ");
+                for (int j = 0; j < wordEntries.get(i.getKey()).size() - 1; j++) {
+                    outputWriter.print(wordEntries.get(i.getKey()).get(j) + " ");
+                }
+                outputWriter.println(wordEntries.get(i.getKey()).get(
+                        wordEntries.get(i.getKey()).size() - 1
+                ));
             }
         } catch (IOException e) {
             System.err.println("I/O Exception: " + e.getMessage());
         }
     }
 }
+

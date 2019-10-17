@@ -2,6 +2,9 @@ import task5.Scanner;
 
 import java.util.Arrays;
 
+/**
+ * @author Alexandr Eremin (eremin.casha@gmail.com)
+ */
 public class Reverse {
     private static final int MIN_ARRAY_SIZE = 16;
 

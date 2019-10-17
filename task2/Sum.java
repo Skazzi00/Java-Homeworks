@@ -1,3 +1,6 @@
+/**
+ * @author Alexandr Eremin (eremin.casha@gmail.com)
+ */
 public class Sum {
     public static void main(String[] args) {
         int sum = 0;
