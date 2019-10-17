@@ -2,7 +2,6 @@ import task6.ListInt;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -36,8 +35,7 @@ public class WordStatIndex {
         File input = new File(args[0]);
         File output = new File(args[1]);
         int wordCounter = 0;
-        Map<String, Integer> wordFreq = new LinkedHashMap<>();
-        Map<String, ListInt> wordEntries = new HashMap<>();
+        Map<String, ListInt> wordEntries = new LinkedHashMap<>();
         try (BufferedReader inputReader = new BufferedReader(
                 new FileReader(
                         input, StandardCharsets.UTF_8
@@ -50,7 +48,6 @@ public class WordStatIndex {
                 while (matcher.find()) {
                     wordCounter++;
                     String token = line.substring(matcher.start(), matcher.end());
-                    wordFreq.put(token, wordFreq.getOrDefault(token, 0) + 1);
                     wordEntries.putIfAbsent(token, new ListInt());
                     wordEntries.get(token).add(wordCounter);
                 }
@@ -68,8 +65,8 @@ public class WordStatIndex {
                 new BufferedWriter(
                         new FileWriter(output, StandardCharsets.UTF_8))
         )) {
-            for (Map.Entry<String, Integer> i : wordFreq.entrySet()) {
-                outputWriter.print(i.getKey() + " " + i.getValue() + " ");
+            for (Map.Entry<String, ListInt> i : wordEntries.entrySet()) {
+                outputWriter.print(i.getKey() + " " + i.getValue().size() + " ");
                 for (int j = 0; j < wordEntries.get(i.getKey()).size() - 1; j++) {
                     outputWriter.print(wordEntries.get(i.getKey()).get(j) + " ");
                 }
