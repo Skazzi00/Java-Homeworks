@@ -15,19 +15,6 @@ import java.util.regex.Pattern;
 public class WordStatLastIndex {
     private static final Pattern WORD = Pattern.compile("[\\p{IsAlphabetic}\\p{Pd}']+");
 
-    private static String readLine(BufferedReader reader) throws IOException {
-        StringBuilder builder = new StringBuilder();
-        int ch = reader.read();
-        if (ch == -1) {
-            return null;
-        }
-        while (ch != -1 && ch != '\n') {
-            builder.append((char) ch);
-            ch = reader.read();
-        }
-        return builder.toString();
-    }
-
     public static void main(String[] args) {
         if (args.length < 2) {
             System.err.println("Error: Not enough arguments");
@@ -38,11 +25,9 @@ public class WordStatLastIndex {
         Map<String, Integer> wordFreq = new LinkedHashMap<>();
         Map<String, ListInt> wordEntries = new HashMap<>();
         try (Scanner inputScanner = new Scanner(input)) {
-
             while (inputScanner.hasNextLine()) {
-                String line = inputScanner.nextLine();
+                String line = inputScanner.nextLine().toLowerCase();
                 int wordCounter = 0;
-                line = line.toLowerCase();
                 Matcher matcher = WORD.matcher(line);
                 Map<String, Integer> lineEntry = new LinkedHashMap<>();
                 while (matcher.find()) {

@@ -52,6 +52,9 @@ public class Scanner implements AutoCloseable {
     }
 
     public void close() {
+        if (closed) {
+            return;
+        }
         closed = true;
         try {
             reader.close();
