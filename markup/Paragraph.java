@@ -5,15 +5,10 @@ import java.util.List;
 /**
  * @author Alexandr Eremin (eremin.casha@gmail.com)
  */
-public class Paragraph extends Markup {
+public class Paragraph extends MarkupElement {
 
-    public Paragraph(List<Markdownable> content) {
+    public Paragraph(List<Markup> content) {
         super(content);
     }
 
-
-    @Override
-    protected String getWrapper() {
-        return "";
-    }
 }

@@ -5,14 +5,18 @@ import java.util.List;
 /**
  * @author Alexandr Eremin (eremin.casha@gmail.com)
  */
-public class Strong extends Markup {
+public class Strong extends MarkupElement {
 
-    public Strong(List<Markdownable> content) {
+    private static final String MARKDOWN_WRAPPER = "__";
+
+    public Strong(List<Markup> content) {
         super(content);
     }
 
     @Override
-    protected String getWrapper() {
-        return "__";
+    public void toMarkdown(StringBuilder builder) {
+        builder.append(MARKDOWN_WRAPPER);
+        super.toMarkdown(builder);
+        builder.append(MARKDOWN_WRAPPER);
     }
 }
