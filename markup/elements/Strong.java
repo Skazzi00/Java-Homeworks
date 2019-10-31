@@ -1,4 +1,6 @@
-package markup;
+package markup.elements;
+
+import markup.paragraph.ParagraphItem;
 
 import java.util.List;
 
@@ -7,9 +9,9 @@ import java.util.List;
  */
 public class Strong extends MarkupElement {
 
-    public Strong(List<Markup> content) {
+    public Strong(List<ParagraphItem> content) {
         super(content);
         MarkdownWrapper = "__";
-        HtmlWrapper = "strong";
+        TexWrapper = "textbf";
     }
 }

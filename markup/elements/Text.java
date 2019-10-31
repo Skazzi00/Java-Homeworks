@@ -1,9 +1,11 @@
-package markup;
+package markup.elements;
+
+import markup.paragraph.ParagraphItem;
 
 /**
  * @author Alexandr Eremin (eremin.casha@gmail.com)
  */
-public class Text implements Markup {
+public class Text implements ParagraphItem {
 
     private String content;
 
@@ -17,7 +19,7 @@ public class Text implements Markup {
     }
 
     @Override
-    public void toHtml(StringBuilder builder) {
+    public void toTex(StringBuilder builder) {
         builder.append(content);
     }
 }

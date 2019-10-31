@@ -1,4 +1,6 @@
-package markup;
+package markup.elements;
+
+import markup.paragraph.ParagraphItem;
 
 import java.util.List;
 
@@ -7,9 +9,9 @@ import java.util.List;
  */
 public class Strikeout extends MarkupElement {
 
-    public Strikeout(List<Markup> content) {
+    public Strikeout(List<ParagraphItem> content) {
         super(content);
         MarkdownWrapper = "~";
-        HtmlWrapper = "s";
+        TexWrapper = "textst";
     }
 }

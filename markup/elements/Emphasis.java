@@ -1,4 +1,6 @@
-package markup;
+package markup.elements;
+
+import markup.paragraph.ParagraphItem;
 
 import java.util.List;
 
@@ -7,10 +9,10 @@ import java.util.List;
  */
 public class Emphasis extends MarkupElement {
 
-    public Emphasis(List<Markup> content) {
+    public Emphasis(List<ParagraphItem> content) {
         super(content);
         MarkdownWrapper = "*";
-        HtmlWrapper = "em";
+        TexWrapper = "emph";
     }
 
 }
