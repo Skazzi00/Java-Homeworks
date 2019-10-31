@@ -30,7 +30,7 @@ public abstract class MarkupElement implements Markup {
     @Override
     public void toHtml(StringBuilder builder) {
         if (HtmlWrapper == null) {
-            throw new NullPointerException("Html wrapper is not defined");
+            throw new NullPointerException("HTML wrapper is not defined");
         }
         builder.append("<").append(HtmlWrapper).append(">");
         for (Markup item : content) {
