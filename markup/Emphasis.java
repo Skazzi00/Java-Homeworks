@@ -7,16 +7,10 @@ import java.util.List;
  */
 public class Emphasis extends MarkupElement {
 
-    private static final String MARKDOWN_WRAPPER = "*";
-
     public Emphasis(List<Markup> content) {
         super(content);
+        MarkdownWrapper = "*";
+        HtmlWrapper = "em";
     }
 
-    @Override
-    public void toMarkdown(StringBuilder builder) {
-        builder.append(MARKDOWN_WRAPPER);
-        super.toMarkdown(builder);
-        builder.append(MARKDOWN_WRAPPER);
-    }
 }
