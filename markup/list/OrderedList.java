@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class OrderedList extends AbstractList {
     public OrderedList(List<ListItem> content) {
-        super(content);
-        TexEnvironment = "enumerate";
+        super(content, "enumerate");
     }
 }

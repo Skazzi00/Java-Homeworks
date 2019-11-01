@@ -9,8 +9,6 @@ import java.util.List;
  */
 public class Strong extends MarkupElement {
     public Strong(List<ParagraphItem> content) {
-        super(content);
-        MarkdownWrapper = "__";
-        TexWrapper = "textbf";
+        super(content, "__", "textbf");
     }
 }

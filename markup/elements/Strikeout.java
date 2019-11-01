@@ -9,8 +9,6 @@ import java.util.List;
  */
 public class Strikeout extends MarkupElement {
     public Strikeout(List<ParagraphItem> content) {
-        super(content);
-        MarkdownWrapper = "~";
-        TexWrapper = "textst";
+        super(content, "~", "textst");
     }
 }

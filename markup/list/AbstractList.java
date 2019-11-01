@@ -5,12 +5,13 @@ import java.util.List;
 /**
  * @author Alexandr Eremin (eremin.casha@gmail.com)
  */
-public class AbstractList implements ItemOfList {
-    protected String TexEnvironment;
+public abstract class AbstractList implements ItemOfList {
+    private final String TexEnvironment;
     private List<ListItem> content;
 
-    public AbstractList(List<ListItem> content) {
+    protected AbstractList(List<ListItem> content, String texEnvironment) {
         this.content = content;
+        TexEnvironment = texEnvironment;
     }
 
     @Override
