@@ -8,7 +8,6 @@ import java.util.List;
  * @author Alexandr Eremin (eremin.casha@gmail.com)
  */
 public class Strikeout extends MarkupElement {
-
     public Strikeout(List<ParagraphItem> content) {
         super(content);
         MarkdownWrapper = "~";

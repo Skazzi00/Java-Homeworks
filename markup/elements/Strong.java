@@ -8,7 +8,6 @@ import java.util.List;
  * @author Alexandr Eremin (eremin.casha@gmail.com)
  */
 public class Strong extends MarkupElement {
-
     public Strong(List<ParagraphItem> content) {
         super(content);
         MarkdownWrapper = "__";

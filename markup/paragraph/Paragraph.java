@@ -1,7 +1,6 @@
 package markup.paragraph;
 
 import markup.Markdownable;
-import markup.Texable;
 import markup.list.ItemOfList;
 
 import java.util.List;
@@ -18,15 +17,11 @@ public class Paragraph implements Markdownable, ItemOfList {
 
     @Override
     public void toMarkdown(StringBuilder builder) {
-        for (Markdownable item : content) {
-            item.toMarkdown(builder);
-        }
+        content.forEach(paragraphItem -> paragraphItem.toMarkdown(builder));
     }
 
     @Override
     public void toTex(StringBuilder builder) {
-        for (Texable item : content) {
-            item.toTex(builder);
-        }
+        content.forEach(paragraphItem -> paragraphItem.toTex(builder));
     }
 }

@@ -8,11 +8,9 @@ import java.util.List;
  * @author Alexandr Eremin (eremin.casha@gmail.com)
  */
 public class Emphasis extends MarkupElement {
-
     public Emphasis(List<ParagraphItem> content) {
         super(content);
         MarkdownWrapper = "*";
         TexWrapper = "emph";
     }
-
 }

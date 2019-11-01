@@ -6,7 +6,6 @@ import markup.paragraph.ParagraphItem;
  * @author Alexandr Eremin (eremin.casha@gmail.com)
  */
 public class Text implements ParagraphItem {
-
     private String content;
 
     public Text(String content) {

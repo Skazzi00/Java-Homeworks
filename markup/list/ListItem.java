@@ -8,7 +8,6 @@ import java.util.List;
  * @author Alexandr Eremin (eremin.casha@gmail.com)
  */
 public class ListItem implements Texable {
-
     private List<ItemOfList> content;
 
     public ListItem(List<ItemOfList> content) {
@@ -18,8 +17,6 @@ public class ListItem implements Texable {
     @Override
     public void toTex(StringBuilder builder) {
         builder.append("\\item ");
-        for (Texable item : content) {
-            item.toTex(builder);
-        }
+        content.forEach(itemOfList -> itemOfList.toTex(builder));
     }
 }
