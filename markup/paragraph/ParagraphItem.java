@@ -1,7 +1,7 @@
 package markup.paragraph;
 
-import markup.Markdownable;
-import markup.Texable;
+import markup.language.Markdownable;
+import markup.language.Texable;
 
 /**
  * @author Alexandr Eremin (eremin.casha@gmail.com)

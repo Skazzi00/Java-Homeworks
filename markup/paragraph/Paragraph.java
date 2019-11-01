@@ -1,6 +1,6 @@
 package markup.paragraph;
 
-import markup.Markdownable;
+import markup.language.Markdownable;
 import markup.list.ItemOfList;
 
 import java.util.List;

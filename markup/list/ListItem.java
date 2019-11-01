@@ -1,6 +1,6 @@
 package markup.list;
 
-import markup.Texable;
+import markup.language.Texable;
 
 import java.util.List;
 

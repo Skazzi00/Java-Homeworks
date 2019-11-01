@@ -1,6 +1,6 @@
 package markup.list;
 
-import markup.Texable;
+import markup.language.Texable;
 
 /**
  * @author Alexandr Eremin (eremin.casha@gmail.com)

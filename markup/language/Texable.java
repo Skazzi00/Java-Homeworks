@@ -1,4 +1,4 @@
-package markup;
+package markup.language;
 
 /**
  * @author Alexandr Eremin (eremin.casha@gmail.com)
