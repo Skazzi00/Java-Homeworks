@@ -1,9 +1,10 @@
 package markup.paragraph;
 
-import markup.Markup;
+import markup.Markdownable;
+import markup.Texable;
 
 /**
  * @author Alexandr Eremin (eremin.casha@gmail.com)
  */
-public interface ParagraphItem extends Markup {
+public interface ParagraphItem extends Markdownable, Texable {
 }

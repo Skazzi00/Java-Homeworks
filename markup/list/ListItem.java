@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class ListItem implements Texable {
 
-    List<ItemOfList> content;
+    private List<ItemOfList> content;
 
     public ListItem(List<ItemOfList> content) {
         this.content = content;
