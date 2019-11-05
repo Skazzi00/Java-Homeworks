@@ -13,7 +13,7 @@ public abstract class MarkupElement implements ParagraphItem {
 
     private List<ParagraphItem> content;
 
-    protected MarkupElement(List<ParagraphItem> content, String markdownWrapper, String texWrapper) {
+    MarkupElement(List<ParagraphItem> content, String markdownWrapper, String texWrapper) {
         this.markdownWrapper = markdownWrapper;
         this.texWrapper = texWrapper;
         this.content = content;
@@ -32,5 +32,4 @@ public abstract class MarkupElement implements ParagraphItem {
         content.forEach(paragraphItem -> paragraphItem.toTex(builder));
         builder.append("}");
     }
-
 }

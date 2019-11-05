@@ -9,7 +9,7 @@ public abstract class AbstractList implements ItemOfList {
     private final String TexEnvironment;
     private List<ListItem> content;
 
-    protected AbstractList(List<ListItem> content, String texEnvironment) {
+    AbstractList(List<ListItem> content, String texEnvironment) {
         this.content = content;
         TexEnvironment = texEnvironment;
     }
