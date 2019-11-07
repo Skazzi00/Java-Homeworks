@@ -6,18 +6,18 @@ import java.util.List;
  * @author Alexandr Eremin (eremin.casha@gmail.com)
  */
 public abstract class AbstractList implements ItemOfList {
-    private final String TexEnvironment;
+    AbstractList(List<ListItem> content) {
+        this.content = content;
+    }
+
     private List<ListItem> content;
 
-    AbstractList(List<ListItem> content, String texEnvironment) {
-        this.content = content;
-        TexEnvironment = texEnvironment;
-    }
+    abstract String getTexEnvironment();
 
     @Override
     public void toTex(StringBuilder builder) {
-        builder.append("\\begin{").append(TexEnvironment).append("}");
+        builder.append("\\begin{").append(getTexEnvironment()).append("}");
         content.forEach(listItem -> listItem.toTex(builder));
-        builder.append("\\end{").append(TexEnvironment).append("}");
+        builder.append("\\end{").append(getTexEnvironment()).append("}");
     }
 }

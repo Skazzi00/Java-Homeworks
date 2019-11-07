@@ -9,6 +9,16 @@ import java.util.List;
  */
 public class Strikeout extends MarkupElement {
     public Strikeout(List<ParagraphItem> content) {
-        super(content, "~", "textst");
+        super(content);
+    }
+
+    @Override
+    public String getMarkdownTag() {
+        return "~";
+    }
+
+    @Override
+    public String getTexTag() {
+        return "textst";
     }
 }

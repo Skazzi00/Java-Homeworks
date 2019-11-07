@@ -9,6 +9,16 @@ import java.util.List;
  */
 public class Emphasis extends MarkupElement {
     public Emphasis(List<ParagraphItem> content) {
-        super(content, "*", "emph");
+        super(content);
+    }
+
+    @Override
+    public String getMarkdownTag() {
+        return "*";
+    }
+
+    @Override
+    public String getTexTag() {
+        return "emph";
     }
 }
