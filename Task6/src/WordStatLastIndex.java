@@ -1,5 +1,3 @@
-import task5.Scanner;
-import task6.ListInt;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

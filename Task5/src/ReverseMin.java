@@ -1,5 +1,3 @@
-import task5.Scanner;
-
 import java.util.Arrays;
 
 public class ReverseMin {

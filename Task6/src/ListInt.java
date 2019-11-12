@@ -1,5 +1,3 @@
-package task6;
-
 import java.util.Arrays;
 
 /**

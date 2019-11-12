@@ -97,6 +97,6 @@ hs_err_pid*
 in.txt
 out.txt
 /prog-intro-2019/
-/base/
-/markup/test/
+/Task7/src/base/
+/Task7/src/markup/test/
 /prog-intro-2019/java/
