@@ -8,8 +8,8 @@ public class Main {
         final Game game = new Game(false, new HumanPlayer(), new HumanPlayer());
         int result;
         do {
-            result = game.play(new TicTacToeBoard());
-            System.out.println("game.Game result: " + result);
+            result = game.play(new MNKBoard(3, 3, 3));
+            System.out.println("Game result: " + result);
         } while (result != 0);
     }
 }

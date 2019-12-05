@@ -70,38 +70,38 @@ public class MNKBoard implements Board, Position {
         int sideDiagDownSum = 0;
         boolean sideDiagDownEnd = false;
         for (int d = 1; d < k; d++) {
-            if (x - d < 0) sideDiagDownEnd
-                    = mainDiagDownEnd
-                    = upEnd
+            if (y - d < 0) sideDiagDownEnd
+                    = mainDiagUpEnd
+                    = leftEnd
                     = true;
-            if (x + d > n) sideDiagUpEnd
+            if (y + d >= n) sideDiagUpEnd
                     = mainDiagDownEnd
                     = rightEnd
                     = true;
-            if (y - d < 0) sideDiagUpEnd
+            if (x - d < 0) sideDiagUpEnd
                     = mainDiagUpEnd
                     = upEnd
                     = true;
-            if (y + d > m) sideDiagDownEnd
+            if (x + d >= m) sideDiagDownEnd
                     = mainDiagDownEnd
                     = downEnd
                     = true;
 
-            if (!leftEnd && getCell(x - d, y) == value) leftSum++;
+            if (!leftEnd && getCell(x, y - d) == value) leftSum++;
             else leftEnd = true;
-            if (!rightEnd && getCell(x + d, y) == value) rightSum++;
+            if (!rightEnd && getCell(x, y + d) == value) rightSum++;
             else rightEnd = true;
-            if (!upEnd && getCell(x, y - d) == value) upSum++;
+            if (!upEnd && getCell(x - d, y) == value) upSum++;
             else upEnd = true;
-            if (!downEnd && getCell(x, y + d) == value) downSum++;
+            if (!downEnd && getCell(x + d, y) == value) downSum++;
             else downEnd = true;
             if (!mainDiagUpEnd && getCell(x - d, y - d) == value) mainDiagUpSum++;
             else mainDiagUpEnd = true;
             if (!mainDiagDownEnd && getCell(x + d, y + d) == value) mainDiagDownSum++;
             else mainDiagDownEnd = true;
-            if (!sideDiagUpEnd && getCell(x + d, y - d) == value) sideDiagUpSum++;
+            if (!sideDiagUpEnd && getCell(x - d, y + d) == value) sideDiagUpSum++;
             else sideDiagUpEnd = true;
-            if (!sideDiagDownEnd && getCell(x - d, y - d) == value) sideDiagDownSum++;
+            if (!sideDiagDownEnd && getCell(x + d, y - d) == value) sideDiagDownSum++;
             else sideDiagDownEnd = true;
         }
         if (leftSum + rightSum + 1 == k

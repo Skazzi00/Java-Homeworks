@@ -29,13 +29,13 @@ public class Game {
     private int move(final Board board, final Player player, final int no) {
         final Move move = player.move(board.getPosition(), board.getCell());
         final Result result = board.makeMove(move);
-        log("game.Player " + no + " move: " + move);
-        log("game.Position:\n" + board);
+        log("Player " + no + " move: " + move);
+        log("Position:\n" + board);
         if (result == Result.WIN) {
-            log("game.Player " + no + " won");
+            log("Player " + no + " won");
             return no;
         } else if (result == Result.LOSE) {
-            log("game.Player " + no + " lose");
+            log("Player " + no + " lose");
             return 3 - no;
         } else if (result == Result.DRAW) {
             log("Draw");
