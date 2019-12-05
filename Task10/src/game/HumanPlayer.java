@@ -22,7 +22,7 @@ public class HumanPlayer implements Player {
     @Override
     public Move move(final Position position, final Cell cell) {
         while (true) {
-            out.println("game.Position");
+            out.println("Position");
             out.println(position);
             out.println(cell + "'s move");
             out.println("Enter row and column");
@@ -30,9 +30,7 @@ public class HumanPlayer implements Player {
             if (position.isValid(move)) {
                 return move;
             }
-            final int row = move.getRow();
-            final int column = move.getColumn();
-            out.println("game.Move " + move + " is invalid");
+            out.println("Move " + move + " is invalid");
         }
     }
 }

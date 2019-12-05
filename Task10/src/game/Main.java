@@ -8,7 +8,7 @@ public class Main {
         final Game game = new Game(false, new HumanPlayer(), new HumanPlayer());
         int result;
         do {
-            result = game.play(new MNKBoard(3, 3, 3));
+            result = game.play(new MNKBoard(4, 3, 2));
             System.out.println("Game result: " + result);
         } while (result != 0);
     }
