@@ -21,9 +21,10 @@ class Helper {
     static final List<String> specialTags = List.of("[", "]");
 
     static final List<String> mdTags = new ArrayList<>();
-    static final Map<String, String> escapeSymbols = Map.of(
-            "<", "&lt;",
-            ">", "&gt;"
+    static final Map<Character, String> escapeSymbols = Map.of(
+            '<', "&lt;",
+            '>', "&gt;",
+            '&', "&amp;"
     );
 
     static {

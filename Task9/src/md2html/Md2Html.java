@@ -21,10 +21,7 @@ public class Md2Html {
         try (Scanner scanner = new Scanner(new File(args[0]))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                line = line.replace("&", "&amp;");
-                for (var esc : Helper.escapeSymbols.entrySet()) {
-                    line = line.replace(esc.getKey(), esc.getValue());
-                }
+                line = replaceEscapes(line);
                 if (line.isEmpty()) {
                     if (!state.isNewBlockStarted())
                         result.append(state.getHtmlBlock());
@@ -77,6 +74,17 @@ public class Md2Html {
         }
         state.setBlockTag("p");
         return line;
+    }
+
+    private static String replaceEscapes(String string) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < string.length(); i++) {
+            if (Helper.escapeSymbols.containsKey(string.charAt(i)))
+                result.append(Helper.escapeSymbols.get(string.charAt(i)));
+            else
+                result.append(string.charAt(i));
+        }
+        return result.toString();
     }
 
     private static class State {
