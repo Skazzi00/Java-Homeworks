@@ -137,7 +137,7 @@ public class MNKBoard implements Board, Position {
         for (int r = 0; r < m; r++) {
             sb.append("\n");
             sb.append(r);
-            for (int c = 0; c < 3; c++) {
+            for (int c = 0; c < n; c++) {
                 sb.append(SYMBOLS.get(cells[r][c]));
             }
         }

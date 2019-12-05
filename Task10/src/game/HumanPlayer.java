@@ -26,7 +26,23 @@ public class HumanPlayer implements Player {
             out.println(position);
             out.println(cell + "'s move");
             out.println("Enter row and column");
-            final Move move = new Move(in.nextInt(), in.nextInt(), cell);
+            int x = -1;
+            int y = -1;
+            do {
+                String input = in.nextLine();
+                String[] tokens = input.split(" ");
+                if (tokens.length != 2) {
+                    out.println("Input must contain 2 integers");
+                    continue;
+                }
+                try {
+                    x = Integer.parseInt(tokens[0]);
+                    y = Integer.parseInt(tokens[1]);
+                } catch (NumberFormatException e) {
+                    out.println("Tokens must be integers");
+                }
+            } while (x == -1 || y == -1);
+            final Move move = new Move(x, y, cell);
             if (position.isValid(move)) {
                 return move;
             }
