@@ -11,8 +11,8 @@ public class Main {
         int result;
         Scanner in = new Scanner(System.in);
         int m = -1, n = -1, k = -1;
+        System.out.println("Enter m,n,k:");
         do {
-            System.out.println("Enter m,n,k:");
             String input = in.nextLine();
             String[] tokens = input.split(" ");
             if (tokens.length != 3) {
@@ -24,7 +24,10 @@ public class Main {
                 n = Integer.parseInt(tokens[1]);
                 k = Integer.parseInt(tokens[2]);
             } catch (NumberFormatException e) {
-                System.out.println("Tokens must be integers");
+                System.out.println("Tokens must be integers. Try Again");
+            }
+            if (!(m > 0 && n > 0 && k > 0)) {
+
             }
         } while (m == -1 || n == -1 || k == -1);
         do {
