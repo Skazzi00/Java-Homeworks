@@ -27,9 +27,12 @@ public class Main {
                 System.out.println("Tokens must be integers. Try Again");
             }
             if (!(m > 0 && n > 0 && k > 0)) {
-
+                System.out.println("Values is incorrect");
+                m = -1;
+                n = -1;
+                k = -1;
             }
-        } while (m == -1 || n == -1 || k == -1);
+        } while (m == -1);
         do {
             result = game.play(new MNKBoard(m, n, k));
             System.out.println("Game result: " + result);
