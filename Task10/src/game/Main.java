@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-        final Game game = new Game(false, new HumanPlayer(), new HumanPlayer());
+        final Game game = new Game(false, new HumanPlayer(), new RandomPlayer());
         int result;
         Scanner in = new Scanner(System.in);
         int m = -1, n = -1, k = -1;
@@ -33,9 +33,7 @@ public class Main {
                 k = -1;
             }
         } while (m == -1);
-        do {
-            result = game.play(new MNKBoard(m, n, k));
-            System.out.println("Game result: " + result);
-        } while (result != 0);
+        result = game.play(new MNKBoard(m, n, k));
+        System.out.println("Game result: " + result);
     }
 }

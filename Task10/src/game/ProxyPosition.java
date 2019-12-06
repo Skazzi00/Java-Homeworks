@@ -4,7 +4,7 @@ package game;
  * @author Alexandr Eremin (eremin.casha@gmail.com)
  */
 public class ProxyPosition implements Position {
-    private final MNKBoard board;
+    private final Position board;
 
     public ProxyPosition(MNKBoard board) {
         this.board = board;

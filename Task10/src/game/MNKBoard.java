@@ -130,17 +130,28 @@ public class MNKBoard implements Board, Position {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder(" ");
+        int width = Math.max(getNumberWidth(m), getNumberWidth(n)) + 1;
+        final StringBuilder sb = new StringBuilder(" ".repeat(width));
+        String format = "%" + width + "s";
         for (int i = 0; i < n; i++) {
-            sb.append(i);
+            sb.append(String.format(format, i));
         }
         for (int r = 0; r < m; r++) {
             sb.append("\n");
-            sb.append(r);
+            sb.append(String.format(format, r));
             for (int c = 0; c < n; c++) {
-                sb.append(SYMBOLS.get(cells[r][c]));
+                sb.append(String.format(format, SYMBOLS.get(cells[r][c])));
             }
         }
         return sb.toString();
+    }
+
+    private int getNumberWidth(int x) {
+        int cnt = 0;
+        while (x > 0) {
+            x /= 10;
+            cnt++;
+        }
+        return cnt;
     }
 }
